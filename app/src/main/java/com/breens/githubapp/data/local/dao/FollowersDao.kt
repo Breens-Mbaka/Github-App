@@ -10,7 +10,7 @@ import com.breens.githubapp.data.local.entity.FollowersEntity
 interface FollowersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun storeUsersFollowers(movies: List<FollowersEntity>)
+    suspend fun storeUsersFollowers(followers: List<FollowersEntity>)
 
     @Query("DELETE FROM followersentity")
     suspend fun deleteFollowers()

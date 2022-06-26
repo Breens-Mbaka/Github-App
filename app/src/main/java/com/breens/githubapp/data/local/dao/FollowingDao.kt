@@ -10,11 +10,11 @@ import com.breens.githubapp.data.local.entity.FollowingEntity
 interface FollowingDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun storeUserFollowing(movies: List<FollowingEntity>)
+    suspend fun storeUserFollowing(following: List<FollowingEntity>)
 
-    @Query("DELETE FROM followersentity")
+    @Query("DELETE FROM followingentity")
     suspend fun deleteUserFollowing()
 
-    @Query("SELECT * FROM followersentity")
+    @Query("SELECT * FROM followingentity")
     suspend fun getUserFollowing(): List<FollowingEntity>
 }

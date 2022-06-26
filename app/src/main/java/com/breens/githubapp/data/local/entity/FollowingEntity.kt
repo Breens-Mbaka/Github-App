@@ -15,5 +15,5 @@ data class FollowingEntity(
     val location: String,
     val bio: String,
     @ColumnInfo(name = "public_repos")
-    val publicRepos: Int,
+    val publicRepos: Int
 )
