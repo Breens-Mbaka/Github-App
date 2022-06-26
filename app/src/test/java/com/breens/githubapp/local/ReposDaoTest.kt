@@ -65,5 +65,4 @@ class ReposDaoTest {
         database.clearAllTables()
         database.close()
     }
-
 }

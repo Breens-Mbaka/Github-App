@@ -3,9 +3,11 @@ package com.breens.githubapp.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 data class RepositoryEntity(
+    @PrimaryKey
     val id: Int,
     val name: String,
     @ColumnInfo(name = "full_name")
