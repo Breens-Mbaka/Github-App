@@ -6,11 +6,14 @@ import com.breens.githubapp.data.local.GithubAppDatabase
 import com.breens.githubapp.data.network.GithubApi
 import com.breens.githubapp.data.repositoryimplementation.GetUserInfoRepositoryImplementation
 import com.breens.githubapp.data.repositoryimplementation.GetUsersFollowersRepositoryImplementation
+import com.breens.githubapp.data.repositoryimplementation.GetUsersFollowingRepositoryImplementation
 import com.breens.githubapp.data.util.Constants.BASE_URL
 import com.breens.githubapp.domain.repository.GetUserProfileRepository
 import com.breens.githubapp.domain.repository.GetUsersFollowersRepository
+import com.breens.githubapp.domain.repository.GetUsersFollowingRepository
 import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
 import com.breens.githubapp.domain.usecases.GetUsersFollowersUseCase
+import com.breens.githubapp.domain.usecases.GetUsersFollowingUseCase
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -102,6 +105,27 @@ object GithubAppModule {
     @Singleton
     fun provideGetUsersFollowersUseCase(repository: GetUsersFollowersRepository): GetUsersFollowersUseCase {
         return GetUsersFollowersUseCase(
+            repository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun getUsersFollowingRepository(
+        database: GithubAppDatabase,
+        githubApi: GithubApi
+
+    ): GetUsersFollowingRepository {
+        return GetUsersFollowingRepositoryImplementation(
+            githubApi,
+            database.followingDao
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetUsersFollowingUseCase(repository: GetUsersFollowingRepository): GetUsersFollowingUseCase {
+        return GetUsersFollowingUseCase(
             repository
         )
     }
