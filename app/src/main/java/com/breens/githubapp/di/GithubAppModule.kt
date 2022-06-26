@@ -69,7 +69,7 @@ object GithubAppModule {
     ): GetUserProfileRepository {
         return GetUserInfoRepositoryImplementation(
             githubApi,
-            database.dao
+            database.userDao
         )
     }
 
