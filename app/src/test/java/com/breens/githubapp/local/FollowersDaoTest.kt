@@ -6,8 +6,6 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.breens.githubapp.data.local.GithubAppDatabase
 import com.breens.githubapp.data.local.dao.FollowersDao
-import com.breens.githubapp.data.local.dao.UserDao
-import com.breens.resources.fakeUserProfile
 import com.breens.resources.fakeUsersFollowers
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
