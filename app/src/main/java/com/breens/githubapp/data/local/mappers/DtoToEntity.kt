@@ -1,8 +1,10 @@
 package com.breens.githubapp.data.local.mappers
 
 import com.breens.githubapp.data.local.entity.FollowersEntity
+import com.breens.githubapp.data.local.entity.FollowingEntity
 import com.breens.githubapp.data.local.entity.UserEntity
 import com.breens.githubapp.data.network.response.FollowersDto
+import com.breens.githubapp.data.network.response.FollowingDto
 import com.breens.githubapp.data.network.response.UserDto
 
 internal fun UserDto.toEntity(): UserEntity {
@@ -19,6 +21,18 @@ internal fun UserDto.toEntity(): UserEntity {
 
 internal fun FollowersDto.toEntity(): FollowersEntity {
     return FollowersEntity(
+        this.id,
+        this.avatarUrl,
+        this.login,
+        this.name,
+        this.location,
+        this.bio,
+        this.publicRepos
+    )
+}
+
+internal fun FollowingDto.toEntity():FollowingEntity {
+    return FollowingEntity(
         this.id,
         this.avatarUrl,
         this.login,
