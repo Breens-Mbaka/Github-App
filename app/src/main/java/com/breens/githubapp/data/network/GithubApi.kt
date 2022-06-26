@@ -1,5 +1,6 @@
 package com.breens.githubapp.data.network
 
+import com.breens.githubapp.data.network.response.FollowersDto
 import com.breens.githubapp.data.network.response.UserDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,5 +21,5 @@ interface GithubApi {
     @GET("/users/{user}/followers")
     suspend fun getUsersFollowers(
         @Path("user") user: String
-    ): List<UserDto>
+    ): List<FollowersDto>
 }

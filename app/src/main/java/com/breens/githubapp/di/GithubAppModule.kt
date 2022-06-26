@@ -5,9 +5,12 @@ import androidx.room.Room
 import com.breens.githubapp.data.local.GithubAppDatabase
 import com.breens.githubapp.data.network.GithubApi
 import com.breens.githubapp.data.repositoryimplementation.GetUserInfoRepositoryImplementation
+import com.breens.githubapp.data.repositoryimplementation.GetUsersFollowersRepositoryImplementation
 import com.breens.githubapp.data.util.Constants.BASE_URL
 import com.breens.githubapp.domain.repository.GetUserProfileRepository
+import com.breens.githubapp.domain.repository.GetUsersFollowersRepository
 import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
+import com.breens.githubapp.domain.usecases.GetUsersFollowersUseCase
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -19,7 +22,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -44,7 +46,7 @@ object GithubAppModule {
     fun provideGithubApi(okHttpClient: OkHttpClient): GithubApi {
         val contentType = "application/json".toMediaType()
         val converterFactory = Json.asConverterFactory(contentType)
-        val retrofit =  Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .baseUrl(BASE_URL)
@@ -79,6 +81,27 @@ object GithubAppModule {
     @Singleton
     fun provideGetUserProfileUseCase(repository: GetUserProfileRepository): GetUserProfileUseCase {
         return GetUserProfileUseCase(
+            repository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun getUsersFollowersRepository(
+        database: GithubAppDatabase,
+        githubApi: GithubApi
+
+    ): GetUsersFollowersRepository {
+        return GetUsersFollowersRepositoryImplementation(
+            githubApi,
+            database.followersDao
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetUsersFollowersUseCase(repository: GetUsersFollowersRepository): GetUsersFollowersUseCase {
+        return GetUsersFollowersUseCase(
             repository
         )
     }

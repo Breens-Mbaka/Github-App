@@ -1,5 +1,6 @@
 package com.breens.githubapp.usecases
 
+import com.breens.githubapp.domain.models.Followers
 import com.breens.githubapp.domain.models.User
 import com.breens.githubapp.domain.repository.GetUsersFollowersRepository
 import com.breens.githubapp.domain.usecases.GetUsersFollowersUseCase
@@ -16,21 +17,21 @@ class GetUserFollowersUseCaseTest {
 
     companion object {
         fun mockGetUsersFollowersRepository(
-            flowReturn: Flow<Resource<List<User>>>
+            flowReturn: Flow<Resource<List<Followers>>>
         ) = object : GetUsersFollowersRepository {
 
-            override fun getUsersFollowers(name: String?): Flow<Resource<List<User>>> = flowReturn
+            override fun getUsersFollowers(name: String?): Flow<Resource<List<Followers>>> = flowReturn
         }
     }
 
     @Test
     fun `Get users followers starts with loading RETURNS Resource Loading`() = runBlocking {
-        val user = mockk<List<User>>()
+        val followers = mockk<List<Followers>>()
         val name = "Breens-Mbaka"
 
         val userFollowersRepository = mockGetUsersFollowersRepository(flow {
             emit(Resource.Loading())
-            emit(Resource.Success(user))
+            emit(Resource.Success(followers))
         })
 
         val result = GetUsersFollowersUseCase(userFollowersRepository).invoke(name).first()
@@ -40,11 +41,11 @@ class GetUserFollowersUseCaseTest {
 
     @Test
     fun `get users followers success result RETURNS Resource + Data`() = runBlocking {
-        val user = mockk<List<User>>()
+        val followers = mockk<List<Followers>>()
         val name = "Breens-Mbaka"
         val userFollowersRepository = mockGetUsersFollowersRepository(flow {
             emit(Resource.Loading())
-            emit(Resource.Success(user))
+            emit(Resource.Success(followers))
         })
 
         val result = GetUsersFollowersUseCase(userFollowersRepository).invoke(name).last()
