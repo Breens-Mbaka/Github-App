@@ -82,6 +82,8 @@ dependencies {
     testImplementation "junit:junit:$junit_test_version"
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "com.google.truth:truth:$truth_version"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:3.11.2"
     testImplementation "androidx.arch.core:core-testing:$arch_core_testing"
     testImplementation "androidx.test:runner:$test_runner"
     testImplementation "org.robolectric:robolectric:$roboelectric_version"

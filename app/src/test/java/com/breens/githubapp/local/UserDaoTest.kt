@@ -9,7 +9,6 @@ import com.breens.githubapp.data.local.dao.UserDao
 import com.breens.resources.fakeUserProfile
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before

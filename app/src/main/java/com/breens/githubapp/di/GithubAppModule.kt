@@ -19,6 +19,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -40,14 +41,15 @@ object GithubAppModule {
 
     @Provides
     @ExperimentalSerializationApi
-    fun retrofitInstance(okHttpClient: OkHttpClient): Retrofit {
+    fun provideGithubApi(okHttpClient: OkHttpClient): GithubApi {
         val contentType = "application/json".toMediaType()
         val converterFactory = Json.asConverterFactory(contentType)
-        return Retrofit.Builder()
+        val retrofit =  Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .baseUrl(BASE_URL)
             .build()
+        return retrofit.create(GithubApi::class.java)
     }
 
     @Provides
