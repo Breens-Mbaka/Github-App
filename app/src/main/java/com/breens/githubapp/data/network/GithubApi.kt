@@ -2,6 +2,7 @@ package com.breens.githubapp.data.network
 
 import com.breens.githubapp.data.network.response.FollowersDto
 import com.breens.githubapp.data.network.response.FollowingDto
+import com.breens.githubapp.data.network.response.RepositoryDto
 import com.breens.githubapp.data.network.response.UserDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -31,4 +32,12 @@ interface GithubApi {
     suspend fun getUsersFollowing(
         @Path("user") user: String
     ): List<FollowingDto>
+
+    /**
+     *  This endpoint gets a Github user's repos
+     **/
+    @GET("/users/{user}/repos")
+    suspend fun getUsersRepos(
+        @Path("user") user: String
+    ): List<RepositoryDto>
 }

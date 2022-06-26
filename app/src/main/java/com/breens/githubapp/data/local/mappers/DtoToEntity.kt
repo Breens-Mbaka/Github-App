@@ -1,11 +1,7 @@
 package com.breens.githubapp.data.local.mappers
 
-import com.breens.githubapp.data.local.entity.FollowersEntity
-import com.breens.githubapp.data.local.entity.FollowingEntity
-import com.breens.githubapp.data.local.entity.UserEntity
-import com.breens.githubapp.data.network.response.FollowersDto
-import com.breens.githubapp.data.network.response.FollowingDto
-import com.breens.githubapp.data.network.response.UserDto
+import com.breens.githubapp.data.local.entity.*
+import com.breens.githubapp.data.network.response.*
 
 internal fun UserDto.toEntity(): UserEntity {
     return UserEntity(
@@ -31,7 +27,7 @@ internal fun FollowersDto.toEntity(): FollowersEntity {
     )
 }
 
-internal fun FollowingDto.toEntity():FollowingEntity {
+internal fun FollowingDto.toEntity(): FollowingEntity {
     return FollowingEntity(
         this.id,
         this.avatarUrl,
@@ -40,5 +36,27 @@ internal fun FollowingDto.toEntity():FollowingEntity {
         this.location,
         this.bio,
         this.publicRepos
+    )
+}
+
+internal fun RepositoryDto.toEntity(): RepositoryEntity {
+    return RepositoryEntity(
+        this.id,
+        this.name,
+        this.fullName,
+        this.owner.toEntity(),
+        this.stargazersCount,
+        this.watchersCount,
+        this.forksCount,
+        this.language,
+        this.openIssues,
+        this.description,
+        this.updatedAt,
+    )
+}
+
+internal fun OwnerDto.toEntity(): OwnerEntity {
+    return OwnerEntity(
+        this.avatarUrl
     )
 }
