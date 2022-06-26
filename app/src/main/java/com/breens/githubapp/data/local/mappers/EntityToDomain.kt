@@ -3,9 +3,7 @@ package com.breens.githubapp.data.local.mappers
 import com.breens.githubapp.data.local.entity.*
 import com.breens.githubapp.data.network.response.OwnerDto
 import com.breens.githubapp.data.network.response.RepositoryDto
-import com.breens.githubapp.domain.models.Followers
-import com.breens.githubapp.domain.models.Following
-import com.breens.githubapp.domain.models.User
+import com.breens.githubapp.domain.models.*
 
 internal fun UserEntity.toDomain(): User {
     return User(
@@ -43,8 +41,8 @@ internal fun FollowingEntity.toDomain(): Following {
     )
 }
 
-internal fun RepositoryEntity.toDomain(): RepositoryDto {
-    return RepositoryDto(
+internal fun RepositoryEntity.toDomain(): Repository {
+    return Repository(
         this.id,
         this.name,
         this.fullName,
@@ -59,8 +57,8 @@ internal fun RepositoryEntity.toDomain(): RepositoryDto {
     )
 }
 
-internal fun OwnerEntity.toDomain(): OwnerDto {
-    return OwnerDto(
+internal fun OwnerEntity.toDomain(): Owner {
+    return Owner(
         this.avatarUrl
     )
 }
