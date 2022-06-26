@@ -14,6 +14,7 @@ buildscript {
         nav_version = "2.4.2"
         coil_version = "2.1.0"
         coroutines_core = "1.5.2"
+        coroutines_testing = "1.6.0"
         coroutines_android = "1.6.1"
         lifecycle_version = "2.4.1"
         room_version = "2.4.2"
@@ -22,7 +23,12 @@ buildscript {
         espresso_android_test_version = "3.4.0"
         mockwebserver_version = "4.9.1"
         fragment_testing = "1.4.1"
+        truth_version = "1.1.2"
+        arch_core_testing = "2.1.0"
+        test_coroutine_rule = "1.0.1"
+        test_runner = "1.4.0"
         mockk_version = "1.10.5"
+        roboelectric_version = "4.5.1"
     }
 
     dependencies {
