@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.breens.githubapp.data.local.GithubAppDatabase
 import com.breens.githubapp.data.network.GithubApi
+import com.breens.githubapp.data.repositoryimplementation.GetUserInfoRepositoryImplementation
 import com.breens.githubapp.data.util.Constants.BASE_URL
 import com.breens.githubapp.domain.repository.GetUserProfileRepository
 import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
@@ -66,9 +67,9 @@ object GithubAppModule {
         githubApi: GithubApi
 
     ): GetUserProfileRepository {
-        return ImageRepositoryImpl(
-            pixabayApi = pixabayApi,
-            imageDao = db.dao
+        return GetUserInfoRepositoryImplementation(
+            githubApi,
+            database.dao
         )
     }
 

@@ -13,7 +13,7 @@ interface UserDao {
     suspend fun insertUser(user: UserEntity)
 
     @Query("DELETE FROM user")
-    suspend fun deleteUser(user: UserEntity)
+    suspend fun deleteUser()
 
     @Query("SELECT * FROM user")
     suspend fun getUser(query: String?): UserEntity
