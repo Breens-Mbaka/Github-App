@@ -1,12 +1,14 @@
 package com.breens.githubapp.usecases
 
 import com.breens.githubapp.domain.models.User
-import com.breens.githubapp.domain.repository.GetUserProfileRepository
 import com.breens.githubapp.domain.repository.GetUsersFollowersRepository
-import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
+import com.breens.githubapp.domain.usecases.GetUsersFollowersUseCase
 import com.breens.githubapp.util.Resource
 import io.mockk.mockk
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -22,44 +24,44 @@ class GetUserFollowersUseCaseTest {
     }
 
     @Test
-    fun  `Get user profile starts with loading RETURNS Resource Loading`() = runBlocking {
-        val user = mockk<User>()
+    fun `Get users followers starts with loading RETURNS Resource Loading`() = runBlocking {
+        val user = mockk<List<User>>()
         val name = "Breens-Mbaka"
 
-        val userProfileRepository = mockGetUserProfileRepository(flow {
+        val userFollowersRepository = mockGetUsersFollowersRepository(flow {
             emit(Resource.Loading())
             emit(Resource.Success(user))
         })
 
-        val result = GetUserProfileUseCase(userProfileRepository).invoke(name).first()
+        val result = GetUsersFollowersUseCase(userFollowersRepository).invoke(name).first()
 
         assert((result is Resource.Loading))
     }
 
     @Test
-    fun `get user profile success result RETURNS Resource + Data`() = runBlocking {
-        val user = mockk<User>()
+    fun `get users followers success result RETURNS Resource + Data`() = runBlocking {
+        val user = mockk<List<User>>()
         val name = "Breens-Mbaka"
-        val userProfileRepository = mockGetUserProfileRepository(flow {
+        val userFollowersRepository = mockGetUsersFollowersRepository(flow {
             emit(Resource.Loading())
             emit(Resource.Success(user))
         })
 
-        val result =  GetUserProfileUseCase(userProfileRepository).invoke(name).last()
+        val result = GetUsersFollowersUseCase(userFollowersRepository).invoke(name).last()
 
-        assert(result is Resource.Success && (result.data ?: false) != emptyFlow<User>())
+        assert(result is Resource.Success && (result.data ?: false) != emptyList<User>())
     }
 
     @Test
-    fun `get user profile error RETURNS Resource Error`() = runBlocking {
+    fun `get users profile error RETURNS Resource Error`() = runBlocking {
         val name = "Breens-Mbaka"
 
-        val userProfileRepository = mockGetUserProfileRepository(flow {
-            emit(Resource.Error("Error getting user profile"))
+        val userFollowersRepository = mockGetUsersFollowersRepository(flow {
+            emit(Resource.Error("Error getting users followers"))
         })
 
-        val result =  GetUserProfileUseCase(userProfileRepository).invoke(name).last()
+        val result = GetUsersFollowersUseCase(userFollowersRepository).invoke(name).last()
 
-        assert(result is Resource.Error && result.message == "Error getting user profile")
+        assert(result is Resource.Error && result.message == "Error getting users followers")
     }
 }
