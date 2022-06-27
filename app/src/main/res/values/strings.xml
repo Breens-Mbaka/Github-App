@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">GithubApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_user">Search Github User</string>
+    <string name="search_icon_description">Search Icon</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="user_icon_description">User Icon</string>
+    <string name="repository_icon_description">Repository icon</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="stars">Stars</string>
+    <string name="repositories">Repositories</string>
+    <string name="bio">Bio:</string>
+    <string name="location">Location:</string>
 </resources>

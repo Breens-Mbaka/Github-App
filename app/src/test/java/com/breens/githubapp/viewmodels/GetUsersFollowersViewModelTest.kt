@@ -2,7 +2,7 @@ package com.breens.githubapp.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.breens.githubapp.domain.usecases.GetUsersFollowersUseCase
-import com.breens.githubapp.presentation.GetUsersFollowersViewModel
+import com.breens.githubapp.presentation.viewmodels.GetUsersFollowersViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

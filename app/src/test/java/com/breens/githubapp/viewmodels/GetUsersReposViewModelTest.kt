@@ -2,7 +2,7 @@ package com.breens.githubapp.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.breens.githubapp.domain.usecases.GetUsersReposeUseCase
-import com.breens.githubapp.presentation.GetUsersReposViewModel
+import com.breens.githubapp.presentation.viewmodels.GetUsersReposViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

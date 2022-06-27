@@ -1,4 +1,4 @@
-package com.breens.githubapp.presentation
+package com.breens.githubapp.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
