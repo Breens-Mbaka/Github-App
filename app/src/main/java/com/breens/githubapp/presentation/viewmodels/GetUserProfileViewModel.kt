@@ -15,7 +15,7 @@ class GetUserProfileViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase
 ) : ViewModel() {
 
-    private val _user = MutableStateFlow("Breens-Mbaka")
+    private val _user = MutableStateFlow("breens-mbaka")
     val user: StateFlow<String?> = _user
 
     fun searchForGithubProfile(userName: String): Flow<Resource<User>> {
