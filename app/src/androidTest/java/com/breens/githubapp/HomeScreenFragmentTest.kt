@@ -29,4 +29,10 @@ class HomeScreenFragmentTest {
         Espresso.onView(withId(R.id.profileInfoContainer))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
+
+    @Test
+    fun `search_button_is_clickable`() {
+        Espresso.onView(withId(R.id.searchButton))
+            .check(ViewAssertions.matches(ViewMatchers.isClickable()))
+    }
 }

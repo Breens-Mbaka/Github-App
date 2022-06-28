@@ -1,5 +1,6 @@
 package com.breens.githubapp.usecases
 
+import com.breens.githubapp.domain.models.User
 import com.breens.githubapp.domain.repository.GetUserProfileRepository
 import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
 import com.breens.githubapp.util.Resource

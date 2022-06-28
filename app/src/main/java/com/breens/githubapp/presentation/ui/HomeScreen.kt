@@ -39,6 +39,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         super.onViewCreated(view, savedInstanceState)
         hideActionBar()
         searchButtonListener()
+        getUserProfileViewModel.user.value?.let { userProfileResponseObserver(it) }
     }
 
     private fun searchButtonListener() {
@@ -55,10 +56,6 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                     is Resource.Success -> {
                         val data = result.data
                         val user = data?.login
-                        binding.apply {
-                            searchInputLayout.visibility = View.VISIBLE
-                            profileInfoContainer.visibility = View.VISIBLE
-                        }
                         setUpHomeScreen(data)
                         seeRepositories(user)
                     }
@@ -72,10 +69,11 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                     }
 
                     is Resource.Loading -> {
-                        binding.apply {
-                            searchInputLayout.visibility = View.GONE
-                            profileInfoContainer.visibility = View.GONE
-                        }
+                        Toast.makeText(
+                            requireContext(),
+                            "Loading...",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

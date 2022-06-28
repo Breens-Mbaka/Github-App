@@ -1,6 +1,7 @@
 package com.breens.githubapp.usecases
 
 import com.breens.githubapp.domain.models.Followers
+import com.breens.githubapp.domain.models.User
 import com.breens.githubapp.domain.repository.GetUsersFollowersRepository
 import com.breens.githubapp.domain.usecases.GetUsersFollowersUseCase
 import com.breens.githubapp.util.Resource
