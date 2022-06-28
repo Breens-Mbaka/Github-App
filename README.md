@@ -49,3 +49,7 @@ This integration test was don under an Android 11 version
 Did some integration tests to test the Github API is called successfully
 Did some integration test to test if the search input layout is shown and the recyclerview holding the list of repositories is shown. Also if the search button is is clickable
 - <p align="center"><img src="screenshots/intergrationtest.png" alt="Clean Architecture Diagram"></p>
+
+### ScreenShots
+<img src="screenshots/homeprofilescreen.png" width="260">&emsp;
+<img src="screenshots/repositoryscreen.png" width="260">
