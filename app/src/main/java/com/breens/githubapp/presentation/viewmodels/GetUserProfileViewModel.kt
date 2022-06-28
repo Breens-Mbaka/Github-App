@@ -1,7 +1,5 @@
 package com.breens.githubapp.presentation.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.breens.githubapp.domain.models.User
 import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
@@ -15,13 +13,13 @@ import javax.inject.Inject
 @HiltViewModel
 class GetUserProfileViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase
-): ViewModel() {
+) : ViewModel() {
 
-    private val _searchResult = MutableStateFlow("Breens")
-    val searchResult: StateFlow<String?> = _searchResult
+    private val _user = MutableStateFlow("Breens-Mbaka")
+    val user: StateFlow<String?> = _user
 
     fun searchForGithubProfile(userName: String): Flow<Resource<User>> {
-        _searchResult.value = userName
+        _user.value = userName
         return getUserProfileUseCase.invoke(userName)
     }
 }

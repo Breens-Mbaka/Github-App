@@ -20,13 +20,13 @@ class GetUserInfoRepositoryImplementation(
     override fun getUserProfile(name: String?): Flow<Resource<User>> = flow {
         emit(Resource.Loading())
 
-        val getUserFromCache = userDao.getUser(name).toDomain()
-        Resource.Loading(data = getUserFromCache)
+        val getUserFromCache = userDao.getUser(name)?.toDomain()
 
         try {
-            val networkResponse = githubApi.getUserProfile(name ?: "")
+            val networkResponse = githubApi.getUserProfile(name.toString())
             userDao.deleteUser()
             userDao.insertUser(networkResponse.toEntity())
+            networkResponse.let { userDao.insertUser(it.toEntity()) }
         } catch (exception: HttpException) {
             emit(
                 Resource.Error(
@@ -43,7 +43,7 @@ class GetUserInfoRepositoryImplementation(
             )
         }
 
-        val user = userDao.getUser(name).toDomain()
+        val user = userDao.getUser(name)?.toDomain()
         emit(Resource.Success(user))
     }
 }

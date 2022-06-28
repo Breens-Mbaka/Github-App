@@ -1,19 +1,19 @@
 package com.breens.githubapp.data.local.mappers
 
 import com.breens.githubapp.data.local.entity.*
-import com.breens.githubapp.data.network.response.OwnerDto
-import com.breens.githubapp.data.network.response.RepositoryDto
 import com.breens.githubapp.domain.models.*
 
 internal fun UserEntity.toDomain(): User {
     return User(
+        this.avatar_url,
+        this.bio,
+        this.followers,
+        this.following,
         this.id,
-        this.avatarUrl,
+        this.location,
         this.login,
         this.name,
-        this.location,
-        this.bio,
-        this.publicRepos
+        this.public_repos
     )
 }
 

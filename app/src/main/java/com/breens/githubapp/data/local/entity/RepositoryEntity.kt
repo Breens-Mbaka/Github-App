@@ -23,7 +23,7 @@ data class RepositoryEntity(
     val language: String?,
     @ColumnInfo(name = "open_issues")
     val openIssues: Int,
-    val description: String,
+    val description: String?,
     @ColumnInfo(name = "updated_at")
     val updatedAt: String
 )

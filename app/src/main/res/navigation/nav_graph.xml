@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreen">
+
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.breens.githubapp.presentation.ui.HomeScreen"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_repositoriesScreen"
+            app:destination="@id/repositoriesScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/repositoriesScreen"
+        android:name="com.breens.githubapp.presentation.ui.RepositoriesScreen"
+        android:label="fragment_repositories"
+        tools:layout="@layout/fragment_repositories" >
+        <argument
+            android:name="user"
+            app:argType="string" />
+    </fragment>
+</navigation>

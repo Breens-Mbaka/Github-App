@@ -13,4 +13,6 @@
     <string name="repositories">Repositories</string>
     <string name="bio">Bio:</string>
     <string name="location">Location:</string>
+    <string name="start_icon_description">Start Icon</string>
+    <string name="repositories_button_text">Repositories</string>
 </resources>

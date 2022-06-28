@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/reposName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Repo Name"
+        android:textAlignment="textStart"
+        android:fontFamily="@font/nunito_bold"
+        android:drawablePadding="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:drawableStartCompat="@drawable/ic_baseline_repos_24" />
+
+    <TextView
+        android:id="@+id/forks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="50 forks"
+        android:fontFamily="@font/nunito_bold"
+        android:drawablePadding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/reposName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:drawableStartCompat="@drawable/ic_baseline_fork_24" />
+
+    <TextView
+        android:id="@+id/issues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="3 issues"
+        android:fontFamily="@font/nunito_bold"
+        android:drawablePadding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/forks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:drawableStartCompat="@drawable/ic_baseline_issue_outline_24" />
+    <TextView
+        android:id="@+id/watches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="3 watches"
+        android:fontFamily="@font/nunito_bold"
+        android:drawablePadding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/issues"
+        app:layout_constraintStart_toStartOf="parent"
+        app:drawableStartCompat="@drawable/ic_baseline_eye_24"/>
+
+    <TextView
+        android:id="@+id/stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12 stars"
+        android:fontFamily="@font/nunito_bold"
+        android:drawablePadding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/watches"
+        app:layout_constraintStart_toStartOf="parent"
+        app:drawableStartCompat="@drawable/ic_baseline_star_24"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:contentDescription="@string/start_icon_description"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_baseline_navigate_next_24"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

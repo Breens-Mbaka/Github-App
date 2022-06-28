@@ -1,11 +1,7 @@
 package com.breens.githubapp.presentation.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.breens.githubapp.domain.models.Followers
-import com.breens.githubapp.domain.models.User
-import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
 import com.breens.githubapp.domain.usecases.GetUsersFollowersUseCase
 import com.breens.githubapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel

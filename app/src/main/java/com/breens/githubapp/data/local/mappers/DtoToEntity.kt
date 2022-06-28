@@ -5,13 +5,15 @@ import com.breens.githubapp.data.network.response.*
 
 internal fun UserDto.toEntity(): UserEntity {
     return UserEntity(
+        this.avatar_url,
+        this.bio,
+        this.followers,
+        this.following,
         this.id,
-        this.avatarUrl,
+        this.location,
         this.login,
         this.name,
-        this.location,
-        this.bio,
-        this.publicRepos
+        this.public_repos
     )
 }
 

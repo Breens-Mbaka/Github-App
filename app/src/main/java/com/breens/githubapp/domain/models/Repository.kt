@@ -19,7 +19,7 @@ data class Repository(
     val language: String?,
     @SerialName("open_issues")
     val openIssues: Int,
-    val description: String,
+    val description: String?,
     @SerialName("updated_at")
     val updatedAt: String
 )

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +7,6 @@
     android:background="@color/screen_background_color"
     android:padding="15dp"
     tools:context=".presentation.ui.HomeScreen">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/searchInputLayout"
@@ -56,12 +52,13 @@
             android:background="@drawable/container_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toBottomOf="@id/searchInputLayout">
 
             <ImageView
                 android:id="@+id/avatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/profile_image"
@@ -76,7 +73,6 @@
                 android:layout_marginStart="24dp"
                 android:contentDescription="@string/user_icon_description"
                 android:src="@drawable/ic_baseline_person_outline_24"
-                app:layout_constraintBottom_toBottomOf="@+id/avatar"
                 app:layout_constraintStart_toEndOf="@+id/avatar"
                 app:layout_constraintTop_toTopOf="@+id/avatar" />
 
@@ -290,41 +286,33 @@
                 app:layout_constraintStart_toStartOf="@+id/bioInfoLabel"
                 app:layout_constraintTop_toBottomOf="@+id/locationInfoLabel" />
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/moreUserInfoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profileInfoContainer"
-            android:background="@drawable/container_background">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/moreInfoTabLayout"
+            <View
+                android:id="@+id/horizontalLineSeparator3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tab_layout_background"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="0.5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tabMode="scrollable" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location"
+                android:background="@drawable/line" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/moreInfoViewPager"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/repositoriesButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:padding="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/repositories_button_text"
+                android:fontFamily="@font/nunito_bold"
+                android:textColor="@color/black"
+                android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/moreInfoTabLayout" />
+                app:layout_constraintTop_toBottomOf="@id/horizontalLineSeparator3" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

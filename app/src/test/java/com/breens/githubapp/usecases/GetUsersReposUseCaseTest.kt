@@ -1,11 +1,7 @@
 package com.breens.githubapp.usecases
 
-import com.breens.githubapp.domain.models.Following
 import com.breens.githubapp.domain.models.Repository
-import com.breens.githubapp.domain.models.User
-import com.breens.githubapp.domain.repository.GetUsersFollowingRepository
 import com.breens.githubapp.domain.repository.GetUsersReposRepository
-import com.breens.githubapp.domain.usecases.GetUsersFollowingUseCase
 import com.breens.githubapp.domain.usecases.GetUsersReposeUseCase
 import com.breens.githubapp.util.Resource
 import io.mockk.mockk

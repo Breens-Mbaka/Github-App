@@ -1,3 +1,5 @@
+@file:Suppress("JSON_FORMAT_REDUNDANT")
+
 package com.breens.githubapp.di
 
 import android.app.Application
@@ -24,6 +26,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -51,10 +54,14 @@ object GithubAppModule {
     @ExperimentalSerializationApi
     fun provideGithubApi(okHttpClient: OkHttpClient): GithubApi {
         val contentType = "application/json".toMediaType()
-        val converterFactory = Json.asConverterFactory(contentType)
         val retrofit = Retrofit.Builder()
             .client(okHttpClient)
-            .addConverterFactory(converterFactory)
+            .addConverterFactory(
+                Json {
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                }.asConverterFactory(contentType)
+            )
             .baseUrl(BASE_URL)
             .build()
         return retrofit.create(GithubApi::class.java)
@@ -67,7 +74,8 @@ object GithubAppModule {
             application,
             GithubAppDatabase::class.java,
             "github_app_db"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
