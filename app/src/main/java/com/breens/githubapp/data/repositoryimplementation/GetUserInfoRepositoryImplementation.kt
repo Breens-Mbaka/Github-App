@@ -27,18 +27,20 @@ class GetUserInfoRepositoryImplementation(
             userDao.deleteUser()
             userDao.insertUser(networkResponse.toEntity())
             networkResponse.let { userDao.insertUser(it.toEntity()) }
-        } catch (exception: HttpException) {
-            emit(
-                Resource.Error(
-                    message = exception.message(),
-                    data = getUserFromCache
-                )
-            )
         } catch (exception: IOException) {
             emit(
                 Resource.Error(
                     message = exception.message.toString(),
-                    data = getUserFromCache
+                    data = getUserFromCache,
+                    code = exception.localizedMessage
+                )
+            )
+        } catch (exception: HttpException) {
+            emit(
+                Resource.Error(
+                    message = exception.message(),
+                    data = getUserFromCache,
+                    code = exception.code().toString()
                 )
             )
         }

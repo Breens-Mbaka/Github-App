@@ -10,7 +10,6 @@ import com.breens.githubapp.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import java.io.IOException
 
 class GetUsersReposRepositoryImplementation(
     private val githubApi: GithubApi,
@@ -31,14 +30,8 @@ class GetUsersReposRepositoryImplementation(
             emit(
                 Resource.Error(
                     message = exception.message(),
-                    data = getReposeFromCache
-                )
-            )
-        } catch (exception: IOException) {
-            emit(
-                Resource.Error(
-                    message = exception.message.toString(),
-                    data = getReposeFromCache
+                    data = getReposeFromCache,
+                    code = exception.code().toString()
                 )
             )
         }

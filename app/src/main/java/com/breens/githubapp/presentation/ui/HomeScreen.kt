@@ -1,6 +1,7 @@
 package com.breens.githubapp.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.breens.githubapp.domain.models.User
 import com.breens.githubapp.presentation.viewmodels.GetUserProfileViewModel
 import com.breens.githubapp.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class HomeScreen : Fragment(R.layout.fragment_home_screen) {
@@ -39,7 +41,6 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         super.onViewCreated(view, savedInstanceState)
         hideActionBar()
         searchButtonListener()
-        getUserProfileViewModel.user.value?.let { userProfileResponseObserver(it) }
     }
 
     private fun searchButtonListener() {
@@ -51,9 +52,10 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
 
     private fun userProfileResponseObserver(searchString: String) {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            getUserProfileViewModel.searchForGithubProfile(searchString.trim()).collect { result ->
+            getUserProfileViewModel.searchForGithubProfile(searchString.lowercase(Locale.getDefault()).trim()).collect { result ->
                 when (result) {
                     is Resource.Success -> {
+                        binding.progressBar.visibility = View.GONE
                         val data = result.data
                         val user = data?.login
                         setUpHomeScreen(data)
@@ -61,19 +63,19 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                     }
 
                     is Resource.Error -> {
-                        Toast.makeText(
-                            requireContext(),
-                            result.message.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        binding.progressBar.visibility = View.GONE
+                        val code = result.code?.toInt()
+                        if (code == 404) {
+                            Log.d("CODE", code.toString())
+                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Log.d("CODE", code.toString())
+                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                     is Resource.Loading -> {
-                        Toast.makeText(
-                            requireContext(),
-                            "Loading...",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        binding.progressBar.visibility = View.VISIBLE
                     }
                 }
             }
@@ -83,7 +85,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     private fun setUpHomeScreen(data: User?) {
         binding.apply {
             avatar.load(data?.avatar_url) {
-                crossfade(true)
+                crossfade(false)
                 transformations(CircleCropTransformation())
             }
             userName.text = data?.login
