@@ -77,7 +77,6 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                 when (result) {
                     is Resource.Success -> {
                         binding.progressBar.visibility = View.GONE
-                        binding.notFound.visibility = View.GONE
                         binding.profileInfoContainer.visibility = View.VISIBLE
                         binding.repositoriesAvailable.visibility = View.VISIBLE
                         binding.repositoriesRecyclerView.visibility = View.VISIBLE
@@ -94,12 +93,11 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                             Log.d("CODE", code.toString())
                             Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
                                 .show()
-                        } else {
+                        } else if (code == 404) {
                             binding.profileInfoContainer.visibility = View.GONE
                             binding.repositoriesAvailable.visibility = View.GONE
                             binding.repositoriesRecyclerView.visibility = View.GONE
                             Log.d("CODE", code.toString())
-                            binding.notFound.visibility = View.VISIBLE
                             Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
                                 .show()
                         }
@@ -108,7 +106,6 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                     is Resource.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                         binding.profileInfoContainer.visibility = View.GONE
-                        binding.notFound.visibility = View.GONE
                         binding.repositoriesAvailable.visibility = View.GONE
                         binding.repositoriesRecyclerView.visibility = View.GONE
                     }
