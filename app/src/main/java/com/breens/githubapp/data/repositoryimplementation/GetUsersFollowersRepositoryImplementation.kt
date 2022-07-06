@@ -26,7 +26,15 @@ class GetUsersFollowersRepositoryImplementation(
         try {
             val networkResponse = githubApi.getUsersFollowers(name ?: "")
             followersDao.deleteFollowers()
-            followersDao.storeUsersFollowers(networkResponse.map { it.toEntity() })
+            networkResponse.let { followersDao.storeUsersFollowers(networkResponse.map { it.toEntity() }) }
+        } catch (exception: IOException) {
+            emit(
+                Resource.Error(
+                    message = exception.toString(),
+                    data = getFollowersFromCache,
+                    code = "0"
+                )
+            )
         } catch (exception: HttpException) {
             emit(
                 Resource.Error(
@@ -35,16 +43,6 @@ class GetUsersFollowersRepositoryImplementation(
                     code = exception.code().toString()
                 )
             )
-        }
-        catch (exception: IOException) {
-            emit(
-                Resource.Error(
-                    message = "Check your internet connection",
-                    data = getFollowersFromCache,
-                    code = exception.message.toString()
-                )
-            )
-
         }
 
         val followers = followersDao.getUsersFollowers().map { it.toDomain() }

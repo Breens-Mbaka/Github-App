@@ -55,10 +55,11 @@ class GetUsersReposUseCaseTest {
 
     @Test
     fun `get user's repos error RETURNS Resource Error`() = runBlocking {
+        val usersRepos = mockk<List<Repository>>()
         val name = "Breens-Mbaka"
 
         val getUsersReposRepository = mockGetUsersReposRepository(flow {
-            emit(Resource.Error("Error getting users repos"))
+            emit(Resource.Error("Error getting users repos",usersRepos, "200"))
         })
 
         val result = GetUsersReposeUseCase(getUsersReposRepository).invoke(name).last()

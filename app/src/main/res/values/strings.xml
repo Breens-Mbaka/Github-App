@@ -16,4 +16,5 @@
     <string name="start_icon_description">Start Icon</string>
     <string name="repositories_button_text">Repositories</string>
     <string name="your_followers">Your Followers</string>
+    <string name="searchQuery">username</string>
 </resources>

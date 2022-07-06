@@ -1,7 +1,6 @@
 package com.breens.githubapp.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +44,7 @@ class FollowingFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         hideActionBar()
         initializeRecyclerview()
+        getUserFollowingViewModel.searchQuery.value?.let { usersFollowingResponseObserver(it) }
         findUserFollowing()
     }
 
@@ -68,13 +68,11 @@ class FollowingFragment : BottomSheetDialogFragment() {
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         val code = result.code?.toInt()
-                        if (code == 404) {
-                            Log.d("CODE", code.toString())
-                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
+                        if (code == 0) {
+                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
                                 .show()
                         } else {
-                            Log.d("CODE", code.toString())
-                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
+                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }

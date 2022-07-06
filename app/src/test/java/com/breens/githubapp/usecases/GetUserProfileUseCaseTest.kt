@@ -1,5 +1,6 @@
 package com.breens.githubapp.usecases
 
+import com.breens.githubapp.domain.models.Following
 import com.breens.githubapp.domain.models.User
 import com.breens.githubapp.domain.repository.GetUserProfileRepository
 import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
@@ -51,10 +52,11 @@ class GetUserProfileUseCaseTest {
 
     @Test
     fun `get user profile error RETURNS Resource Error`() = runBlocking {
+        val user = mockk<User>()
         val name = "Breens-Mbaka"
 
         val userProfileRepository = mockGetUserProfileRepository(flow {
-            emit(Resource.Error("Error getting user profile"))
+            emit(Resource.Error("Error getting user profile", user, "0"))
         })
 
         val result =  GetUserProfileUseCase(userProfileRepository).invoke(name).last()

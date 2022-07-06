@@ -65,5 +65,4 @@ class FollowersDaoTest {
         database.clearAllTables()
         database.close()
     }
-
 }

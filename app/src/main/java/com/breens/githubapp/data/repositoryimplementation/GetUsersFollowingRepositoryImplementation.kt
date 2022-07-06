@@ -10,6 +10,7 @@ import com.breens.githubapp.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import java.io.IOException
 
 class GetUsersFollowingRepositoryImplementation(
     private val githubApi: GithubApi,
@@ -26,7 +27,17 @@ class GetUsersFollowingRepositoryImplementation(
             val networkResponse = githubApi.getUsersFollowing(name ?: "")
             followingDao.deleteUserFollowing()
             followingDao.storeUserFollowing(networkResponse.map { it.toEntity() })
-        } catch (exception: HttpException) {
+        } catch (exception: IOException) {
+            emit(
+                Resource.Error(
+                    message = exception.toString(),
+                    data = getUsersFollowingFromCache,
+                    code = "0"
+                )
+            )
+        }
+
+        catch (exception: HttpException) {
             emit(
                 Resource.Error(
                     message = exception.message(),

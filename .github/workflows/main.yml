@@ -1,8 +1,6 @@
 name: Android Build
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -19,7 +17,7 @@ jobs:
           java-version: 11
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew assembleDebug
 
       - name: Run Tests
         run: ./gradlew test

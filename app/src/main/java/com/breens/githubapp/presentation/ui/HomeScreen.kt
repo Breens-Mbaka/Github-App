@@ -1,5 +1,7 @@
 package com.breens.githubapp.presentation.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,7 +37,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     private val getUserReposViewModel: GetUsersReposViewModel by viewModels()
     private lateinit var repositoriesAdapter: RepositoriesAdapter
     private lateinit var recyclerView: RecyclerView
-    private var userName: String? = null
+    private lateinit var pref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +45,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+        initializePreference()
         return binding.root
     }
 
@@ -59,7 +62,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     private fun searchButtonListener() {
         binding.searchButton.setOnClickListener {
             val user = searchGithubUserListener()
-            userName = user
+            storeSearchQuery(user)
             userProfileResponseObserver(user)
         }
     }
@@ -174,8 +177,9 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
 
     private fun viewUsersFollowers() {
         binding.followersButton.setOnClickListener {
+            val name = pref.getString(getString(R.string.searchQuery), null).toString()
             val githubUser = Bundle()
-            githubUser.putString("user",userName)
+            githubUser.putString("user",name)
             findNavController().navigate(R.id.action_homeScreen_to_followersFragment, githubUser)
         }
     }
@@ -183,9 +187,21 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     private fun viewUsersFollowing() {
         binding.followingButton.setOnClickListener {
             val githubUser = Bundle()
-            githubUser.putString("user",userName)
+            val name = pref.getString(getString(R.string.searchQuery), null).toString()
+            githubUser.putString("user",name)
             findNavController().navigate(R.id.action_homeScreen_to_followingFragment, githubUser)
         }
+    }
+
+    private fun storeSearchQuery(userName: String) {
+        with(pref.edit()) {
+            putString(getString(R.string.searchQuery), userName)
+            apply()
+        }
+    }
+
+    private fun initializePreference() {
+        pref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
     }
 
     private fun hideActionBar() {

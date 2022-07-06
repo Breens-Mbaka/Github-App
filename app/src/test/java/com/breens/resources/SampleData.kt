@@ -19,10 +19,6 @@ val fakeUsersFollowers = listOf(
         id = 72180010,
         avatarUrl = "https://avatars.githubusercontent.com/u/72180010?v=4",
         login = "Breens-Mbaka",
-        name = "Breens Robert",
-        location = "Kenya",
-        bio = "Android Developer",
-        publicRepos = 125
     )
 )
 
@@ -31,10 +27,6 @@ val fakeUsersFollowing = listOf(
         id = 72180010,
         avatarUrl = "https://avatars.githubusercontent.com/u/72180010?v=4",
         login = "Breens-Mbaka",
-        name = "Breens Robert",
-        location = "Kenya",
-        bio = "Android Developer",
-        publicRepos = 125
     )
 )
 
