@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_homeScreen_to_repositoriesScreen"
             app:destination="@id/repositoriesScreen" />
+        <action
+            android:id="@+id/action_homeScreen_to_followersFragment"
+            app:destination="@id/followersFragment" />
+        <action
+            android:id="@+id/action_homeScreen_to_followingFragment"
+            app:destination="@id/followingFragment" />
     </fragment>
     <fragment
         android:id="@+id/repositoriesScreen"
@@ -23,4 +29,22 @@
             android:name="user"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/followersFragment"
+        android:name="com.breens.githubapp.presentation.ui.FollowersFragment"
+        android:label="fragment_followers"
+        tools:layout="@layout/fragment_followers" >
+        <argument
+            android:name="user"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/followingFragment"
+        android:name="com.breens.githubapp.presentation.ui.FollowingFragment"
+        android:label="fragment_following"
+        tools:layout="@layout/fragment_following" >
+        <argument
+            android:name="user"
+            app:argType="string" />
+    </dialog>
 </navigation>

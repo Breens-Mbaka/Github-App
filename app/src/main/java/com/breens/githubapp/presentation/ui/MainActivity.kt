@@ -1,8 +1,7 @@
 package com.breens.githubapp.presentation.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.breens.githubapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.breens.githubapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

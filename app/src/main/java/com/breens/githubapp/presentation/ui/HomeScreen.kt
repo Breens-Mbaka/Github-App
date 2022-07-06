@@ -11,12 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.breens.githubapp.R
 import com.breens.githubapp.databinding.FragmentHomeScreenBinding
 import com.breens.githubapp.domain.models.User
+import com.breens.githubapp.presentation.adapter.RepositoriesAdapter
 import com.breens.githubapp.presentation.viewmodels.GetUserProfileViewModel
+import com.breens.githubapp.presentation.viewmodels.GetUsersReposViewModel
 import com.breens.githubapp.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -27,6 +32,10 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     private var _binding: FragmentHomeScreenBinding? = null
     private val binding get() = _binding!!
     private val getUserProfileViewModel: GetUserProfileViewModel by viewModels()
+    private val getUserReposViewModel: GetUsersReposViewModel by viewModels()
+    private lateinit var repositoriesAdapter: RepositoriesAdapter
+    private lateinit var recyclerView: RecyclerView
+    private var userName: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,38 +49,86 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideActionBar()
+        initializeRecyclerview()
+        getUserProfileViewModel.searchQuery.value?.let { userProfileResponseObserver(it) }
         searchButtonListener()
+        viewUsersFollowers()
+        viewUsersFollowing()
     }
 
     private fun searchButtonListener() {
         binding.searchButton.setOnClickListener {
-            val searchQuery = searchGithubUserListener()
-            userProfileResponseObserver(searchQuery)
+            val user = searchGithubUserListener()
+            userName = user
+            userProfileResponseObserver(user)
         }
     }
 
     private fun userProfileResponseObserver(searchString: String) {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            getUserProfileViewModel.searchForGithubProfile(searchString.lowercase(Locale.getDefault()).trim()).collect { result ->
+            getUserProfileViewModel.searchForGithubProfile(
+                searchString.lowercase(Locale.getDefault()).trim()
+            ).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val data = result.data
                         val user = data?.login
                         setUpHomeScreen(data)
-                        seeRepositories(user)
+                        findUserRepos(user)
                     }
 
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         val code = result.code?.toInt()
-                        if (code == 404) {
+                        if (code == 0) {
                             Log.d("CODE", code.toString())
-                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
+                                .show()
                         } else {
                             Log.d("CODE", code.toString())
-                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
+                                .show()
                         }
+                    }
+
+                    is Resource.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+    }
+
+    private fun findUserRepos(user: String?) {
+        usersReposResponseObserver(user.toString())
+    }
+
+    private fun usersReposResponseObserver(searchString: String) {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            getUserReposViewModel.searchForGithubUsersRepos(
+                searchString.lowercase(Locale.getDefault()).trim()
+            ).collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        val data = result.data
+                        repositoriesAdapter.differ.submitList(data)
+                    }
+
+                    is Resource.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        val code = result.code?.toInt()
+                        if (code == 0) {
+                            Log.d("CODE", code.toString())
+                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Log.d("CODE", code.toString())
+                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                        Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
                     }
 
                     is Resource.Loading -> {
@@ -91,7 +148,6 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
             userName.text = data?.login
             "${data?.public_repos} repositories".also { repositoryNumber.text = it }
             repositoryCount.text = data?.public_repos.toString()
-            starsCount.text = data?.public_repos.toString()
             followersCount.text = data?.followers.toString()
             followingCount.text = data?.following.toString()
             bio.text = data?.bio
@@ -103,12 +159,32 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         return binding.searchEditText.text.toString()
     }
 
-    private fun seeRepositories(user: String?) {
-        val userName = Bundle().apply {
-            putString("user", user)
+    private fun initializeRecyclerview() {
+        repositoriesAdapter = RepositoriesAdapter()
+        recyclerView = binding.repositoriesRecyclerView
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                recyclerView.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = repositoriesAdapter
+    }
+
+    private fun viewUsersFollowers() {
+        binding.followersButton.setOnClickListener {
+            val githubUser = Bundle()
+            githubUser.putString("user",userName)
+            findNavController().navigate(R.id.action_homeScreen_to_followersFragment, githubUser)
         }
-        binding.repositoriesButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homeScreen_to_repositoriesScreen, userName)
+    }
+
+    private fun viewUsersFollowing() {
+        binding.followingButton.setOnClickListener {
+            val githubUser = Bundle()
+            githubUser.putString("user",userName)
+            findNavController().navigate(R.id.action_homeScreen_to_followingFragment, githubUser)
         }
     }
 
