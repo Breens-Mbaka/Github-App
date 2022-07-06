@@ -11,6 +11,7 @@ import com.breens.githubapp.data.repositoryimplementation.GetUsersFollowersRepos
 import com.breens.githubapp.data.repositoryimplementation.GetUsersFollowingRepositoryImplementation
 import com.breens.githubapp.data.repositoryimplementation.GetUsersReposRepositoryImplementation
 import com.breens.githubapp.data.util.Constants.BASE_URL
+import com.breens.githubapp.data.util.RequestInterceptor
 import com.breens.githubapp.domain.repository.GetUserProfileRepository
 import com.breens.githubapp.domain.repository.GetUsersFollowersRepository
 import com.breens.githubapp.domain.repository.GetUsersFollowingRepository
@@ -26,7 +27,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -47,6 +47,7 @@ object GithubAppModule {
     fun okHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(RequestInterceptor())
             .build()
     }
 

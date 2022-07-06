@@ -44,7 +44,6 @@ class FollowersFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         hideActionBar()
         initializeRecyclerview()
-        getUserFollowersViewModel.searchQuery.value?.let { usersFollowersResponseObserver(it) }
         findUserFollowers()
     }
 
