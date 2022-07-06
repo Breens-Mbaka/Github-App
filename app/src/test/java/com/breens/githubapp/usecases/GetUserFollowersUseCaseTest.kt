@@ -55,10 +55,11 @@ class GetUserFollowersUseCaseTest {
 
     @Test
     fun `get users profile error RETURNS Resource Error`() = runBlocking {
+        val followers = mockk<List<Followers>>()
         val name = "Breens-Mbaka"
 
         val userFollowersRepository = mockGetUsersFollowersRepository(flow {
-            emit(Resource.Error("Error getting users followers"))
+            emit(Resource.Error("Error getting users followers",followers, "200"))
         })
 
         val result = GetUsersFollowersUseCase(userFollowersRepository).invoke(name).last()

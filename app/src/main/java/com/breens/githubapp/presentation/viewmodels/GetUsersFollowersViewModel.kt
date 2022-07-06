@@ -1,5 +1,7 @@
 package com.breens.githubapp.presentation.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.breens.githubapp.domain.models.Followers
 import com.breens.githubapp.domain.usecases.GetUsersFollowersUseCase
@@ -13,7 +15,11 @@ class GetUsersFollowersViewModel @Inject constructor(
     private val getUsersFollowersUseCase: GetUsersFollowersUseCase
 ) : ViewModel() {
 
+    private val _searchQuery = MutableLiveData("John")
+    val searchQuery: LiveData<String?> = _searchQuery
+
     fun searchForGithubUserFollowers(userName: String): Flow<Resource<List<Followers>>> {
+        _searchQuery.value = userName
         return getUsersFollowersUseCase.invoke(userName)
     }
 }
