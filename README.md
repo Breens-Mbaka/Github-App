@@ -45,7 +45,7 @@ To test the logic of the app
 - <p align="center"><img src="screenshots/viewmodeltest.png" alt="Clean Architecture Diagram"></p>
 
 ### Github API and Fragments
-This integration test was don under an Android 11 version
+This integration test was done under an Android 11 version device
 Did some integration tests to test the Github API is called successfully
 Did some integration test to test if the search input layout is shown and the recyclerview holding the list of repositories is shown. Also if the search button is is clickable
 - <p align="center"><img src="screenshots/intergrationtest.png" alt="Clean Architecture Diagram"></p>
