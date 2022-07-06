@@ -5,13 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Followers(
-    val id: Int,
+    val id: Int?,
     @SerialName("avatar_url")
-    val avatarUrl: String,
-    val login: String,
-    val name: String,
-    val location: String,
-    val bio: String,
-    @SerialName("public_repos")
-    val publicRepos: Int,
+    val avatarUrl: String?,
+    val login: String?,
 )

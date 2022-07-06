@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     private val getUserReposViewModel: GetUsersReposViewModel by viewModels()
     private lateinit var repositoriesAdapter: RepositoriesAdapter
     private lateinit var recyclerView: RecyclerView
+    private var userName: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,12 +51,15 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         hideActionBar()
         searchButtonListener()
         initializeRecyclerview()
+        viewUsersFollowers()
+        viewUsersFollowing()
     }
 
     private fun searchButtonListener() {
         binding.searchButton.setOnClickListener {
-            val searchQuery = searchGithubUserListener()
-            userProfileResponseObserver(searchQuery)
+            val user = searchGithubUserListener()
+            userName = user
+            userProfileResponseObserver(user)
         }
     }
 
@@ -163,6 +168,22 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         )
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = repositoriesAdapter
+    }
+
+    private fun viewUsersFollowers() {
+        binding.followersButton.setOnClickListener {
+            val githubUser = Bundle()
+            githubUser.putString("user",userName)
+            findNavController().navigate(R.id.action_homeScreen_to_followersFragment, githubUser)
+        }
+    }
+
+    private fun viewUsersFollowing() {
+        binding.followingButton.setOnClickListener {
+            val githubUser = Bundle()
+            githubUser.putString("user",userName)
+            findNavController().navigate(R.id.action_homeScreen_to_followingFragment, githubUser)
+        }
     }
 
     private fun hideActionBar() {

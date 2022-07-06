@@ -21,11 +21,7 @@ internal fun FollowersEntity.toDomain(): Followers {
     return Followers(
         this.id,
         this.avatarUrl,
-        this.login,
-        this.name,
-        this.location,
-        this.bio,
-        this.publicRepos
+        this.login
     )
 }
 
@@ -33,11 +29,7 @@ internal fun FollowingEntity.toDomain(): Following {
     return Following(
         this.id,
         this.avatarUrl,
-        this.login,
-        this.name,
-        this.location,
-        this.bio,
-        this.publicRepos
+        this.login
     )
 }
 
