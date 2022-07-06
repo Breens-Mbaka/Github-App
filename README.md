@@ -51,5 +51,6 @@ Did some integration test to test if the search input layout is shown and the re
 - <p align="center"><img src="screenshots/intergrationtest.png" alt="Clean Architecture Diagram"></p>
 
 ### ScreenShots
-<img src="screenshots/homeprofilescreen.png" width="260">&emsp;
-<img src="screenshots/repositoryscreen.png" width="260">
+<img src="screenshots/screenshot1.png" width="260">&emsp;
+<img src="screenshots/screenshot2.png" width="260">
+<img src="screenshots/screenshot3.png" width="260">
