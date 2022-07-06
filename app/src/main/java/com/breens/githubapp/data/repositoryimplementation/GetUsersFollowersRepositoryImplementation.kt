@@ -26,7 +26,7 @@ class GetUsersFollowersRepositoryImplementation(
         try {
             val networkResponse = githubApi.getUsersFollowers(name ?: "")
             followersDao.deleteFollowers()
-            networkResponse.let { followersDao.storeUsersFollowers(networkResponse.map { it.toEntity() }) }
+            followersDao.storeUsersFollowers(networkResponse.map { it.toEntity() })
         } catch (exception: IOException) {
             emit(
                 Resource.Error(

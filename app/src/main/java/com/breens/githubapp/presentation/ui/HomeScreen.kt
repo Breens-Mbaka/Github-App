@@ -38,6 +38,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     private lateinit var repositoriesAdapter: RepositoriesAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var pref: SharedPreferences
+    private var name: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +63,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     private fun searchButtonListener() {
         binding.searchButton.setOnClickListener {
             val user = searchGithubUserListener()
+            name = user
             storeSearchQuery(user)
             userProfileResponseObserver(user)
         }
@@ -177,19 +179,41 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
 
     private fun viewUsersFollowers() {
         binding.followersButton.setOnClickListener {
-            val name = pref.getString(getString(R.string.searchQuery), null).toString()
-            val githubUser = Bundle()
-            githubUser.putString("user",name)
-            findNavController().navigate(R.id.action_homeScreen_to_followersFragment, githubUser)
+            searchForFollowers()
+        }
+    }
+
+    private fun searchForFollowers() {
+        val githubUser = Bundle()
+        if (name.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Search a username first", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            githubUser.putString("user", name)
+            findNavController().navigate(
+                R.id.action_homeScreen_to_followersFragment,
+                githubUser
+            )
         }
     }
 
     private fun viewUsersFollowing() {
         binding.followingButton.setOnClickListener {
-            val githubUser = Bundle()
-            val name = pref.getString(getString(R.string.searchQuery), null).toString()
-            githubUser.putString("user",name)
-            findNavController().navigate(R.id.action_homeScreen_to_followingFragment, githubUser)
+            searchForFollowing()
+        }
+    }
+
+    private fun searchForFollowing() {
+        val githubUser = Bundle()
+        if (name.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Search a username first", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            githubUser.putString("user", name)
+            findNavController().navigate(
+                R.id.action_homeScreen_to_followingFragment,
+                githubUser
+            )
         }
     }
 
