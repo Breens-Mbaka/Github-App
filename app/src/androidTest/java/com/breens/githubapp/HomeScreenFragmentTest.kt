@@ -19,19 +19,19 @@ class HomeScreenFragmentTest {
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun `searchInput_is_displayed`() {
+    fun searchInput_is_displayed() {
         Espresso.onView(withId(R.id.searchInputLayout))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun `user_profile_is_displayed`() {
+    fun user_profile_is_displayed() {
         Espresso.onView(withId(R.id.profileInfoContainer))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun `search_button_is_clickable`() {
+    fun search_button_is_clickable() {
         Espresso.onView(withId(R.id.searchButton))
             .check(ViewAssertions.matches(ViewMatchers.isClickable()))
     }
