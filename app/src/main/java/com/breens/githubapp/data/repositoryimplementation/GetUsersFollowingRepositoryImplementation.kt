@@ -30,7 +30,7 @@ class GetUsersFollowingRepositoryImplementation(
         } catch (exception: IOException) {
             emit(
                 Resource.Error(
-                    message = exception.toString(),
+                    message = "Network connection lost!",
                     data = getUsersFollowingFromCache,
                     code = "0"
                 )

@@ -30,7 +30,7 @@ class GetUsersReposRepositoryImplementation(
         } catch (exception: IOException) {
             emit(
                 Resource.Error(
-                    message = exception.toString(),
+                    message = "Network connection lost!",
                     data = getReposeFromCache,
                     code = "0"
                 )

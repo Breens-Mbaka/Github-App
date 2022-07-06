@@ -31,7 +31,7 @@ class GetUserInfoRepositoryImplementation(
         } catch (exception: IOException) {
             emit(
                 Resource.Error(
-                    message = exception.message.toString(),
+                    message = "Network connection lost!",
                     data = getUserFromCache,
                     code = "0"
                 )
