@@ -49,8 +49,9 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideActionBar()
-        searchButtonListener()
         initializeRecyclerview()
+        getUserProfileViewModel.searchQuery.value?.let { userProfileResponseObserver(it) }
+        searchButtonListener()
         viewUsersFollowers()
         viewUsersFollowing()
     }
@@ -80,13 +81,13 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         val code = result.code?.toInt()
-                        if (code == 404) {
+                        if (code == 0) {
                             Log.d("CODE", code.toString())
-                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
+                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
                                 .show()
                         } else {
                             Log.d("CODE", code.toString())
-                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
+                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
@@ -118,15 +119,16 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         val code = result.code?.toInt()
-                        if (code == 404) {
-                            Log.d("CODE", code.toString())
-                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
-                                .show()
-                        } else {
+                        if (code == 0) {
                             Log.d("CODE", code.toString())
                             Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
                                 .show()
+                        } else {
+                            Log.d("CODE", code.toString())
+                            Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
+                                .show()
                         }
+                        Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
                     }
 
                     is Resource.Loading -> {

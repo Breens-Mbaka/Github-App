@@ -21,6 +21,7 @@ class GetUserInfoRepositoryImplementation(
         emit(Resource.Loading())
 
         val getUserFromCache = userDao.getUser(name)?.toDomain()
+        emit(Resource.Loading(data = getUserFromCache))
 
         try {
             val networkResponse = githubApi.getUserProfile(name.toString())
@@ -32,7 +33,7 @@ class GetUserInfoRepositoryImplementation(
                 Resource.Error(
                     message = exception.message.toString(),
                     data = getUserFromCache,
-                    code = exception.localizedMessage
+                    code = "0"
                 )
             )
         } catch (exception: HttpException) {

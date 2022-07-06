@@ -1,5 +1,7 @@
 package com.breens.githubapp.presentation.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.breens.githubapp.domain.models.User
 import com.breens.githubapp.domain.usecases.GetUserProfileUseCase
@@ -13,7 +15,11 @@ class GetUserProfileViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase
 ) : ViewModel() {
 
+    private val _searchQuery = MutableLiveData("John")
+    val searchQuery: LiveData<String?> = _searchQuery
+
     fun searchForGithubProfile(userName: String): Flow<Resource<User>> {
+        _searchQuery.value = userName
         return getUserProfileUseCase.invoke(userName)
     }
 }

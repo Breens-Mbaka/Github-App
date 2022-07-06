@@ -10,6 +10,7 @@ import com.breens.githubapp.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import java.io.IOException
 
 class GetUsersFollowersRepositoryImplementation(
     private val githubApi: GithubApi,
@@ -34,6 +35,16 @@ class GetUsersFollowersRepositoryImplementation(
                     code = exception.code().toString()
                 )
             )
+        }
+        catch (exception: IOException) {
+            emit(
+                Resource.Error(
+                    message = "Check your internet connection",
+                    data = getFollowersFromCache,
+                    code = exception.message.toString()
+                )
+            )
+
         }
 
         val followers = followersDao.getUsersFollowers().map { it.toDomain() }
