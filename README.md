@@ -1,6 +1,6 @@
 ## Github App
 
-An android app built using Kotlin that consumes the Github API to search for Github profiles and more information on the user. It has been built following Clean Architecture Principle, MVVM Architecture and Modern Jetpack components.
+An android app built using Kotlin that consumes the Github API to search for Github profiles and more information on the user. It has been built following Clean Architecture Principles, MVVM Architecture/Pattern and Modern Jetpack components.
 
 ## Architecture (Clean Architecture).
 Clean Architecture combines a group of practices that produce systems with the following characteristics:
