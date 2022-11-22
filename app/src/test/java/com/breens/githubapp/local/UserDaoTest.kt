@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.breens.githubapp.data.local.GithubAppDatabase
 import com.breens.githubapp.data.local.dao.UserDao
-import com.breens.resources.fakeUserProfile
+import com.breens.githubapp.resources.fakeUserProfile
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -41,16 +41,16 @@ class UserDaoTest {
 
     @Test
     fun `store user profile in GithubAppDatabase`() = runTest {
-        userDao.insertUser(fakeUserProfile)
+        userDao.insertUser(com.breens.githubapp.resources.fakeUserProfile)
 
         val userProfile = userDao.getUser("Breens-Mbaka")
 
-        Truth.assertThat(userProfile).isEqualTo(fakeUserProfile)
+        Truth.assertThat(userProfile).isEqualTo(com.breens.githubapp.resources.fakeUserProfile)
     }
 
     @Test
     fun `delete user profile in GithubAppDatabase`() = runTest {
-        userDao.insertUser(fakeUserProfile)
+        userDao.insertUser(com.breens.githubapp.resources.fakeUserProfile)
 
         userDao.deleteUser()
 

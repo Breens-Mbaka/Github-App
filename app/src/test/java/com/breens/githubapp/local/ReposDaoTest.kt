@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.breens.githubapp.data.local.GithubAppDatabase
 import com.breens.githubapp.data.local.dao.ReposDao
-import com.breens.resources.fakeRepos
+import com.breens.githubapp.resources.fakeRepos
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -41,16 +41,16 @@ class ReposDaoTest {
 
     @Test
     fun `store user's repos in GithubAppDatabase`() = runTest {
-        reposDao.storeRepos(fakeRepos)
+        reposDao.storeRepos(com.breens.githubapp.resources.fakeRepos)
 
         val usersRepos = reposDao.getRepos()
 
-        Truth.assertThat(usersRepos).isEqualTo(fakeRepos)
+        Truth.assertThat(usersRepos).isEqualTo(com.breens.githubapp.resources.fakeRepos)
     }
 
     @Test
     fun `delete user's repos in GithubAppDatabase`() = runTest {
-        reposDao.storeRepos(fakeRepos)
+        reposDao.storeRepos(com.breens.githubapp.resources.fakeRepos)
 
         reposDao.deleteRepos()
 

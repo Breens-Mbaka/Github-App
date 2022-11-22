@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.breens.githubapp.data.local.GithubAppDatabase
 import com.breens.githubapp.data.local.dao.FollowingDao
-import com.breens.resources.fakeUsersFollowing
+import com.breens.githubapp.resources.fakeUsersFollowing
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -41,16 +41,16 @@ class FollowingDaoTest {
 
     @Test
     fun `store user's following in GithubAppDatabase`() = runTest {
-        followingDao.storeUserFollowing(fakeUsersFollowing)
+        followingDao.storeUserFollowing(com.breens.githubapp.resources.fakeUsersFollowing)
 
         val usersFollowing = followingDao.getUserFollowing()
 
-        Truth.assertThat(usersFollowing).isEqualTo(fakeUsersFollowing)
+        Truth.assertThat(usersFollowing).isEqualTo(com.breens.githubapp.resources.fakeUsersFollowing)
     }
 
     @Test
     fun `delete user's following in GithubAppDatabase`() = runTest {
-        followingDao.storeUserFollowing(fakeUsersFollowing)
+        followingDao.storeUserFollowing(com.breens.githubapp.resources.fakeUsersFollowing)
 
         followingDao.deleteUserFollowing()
 

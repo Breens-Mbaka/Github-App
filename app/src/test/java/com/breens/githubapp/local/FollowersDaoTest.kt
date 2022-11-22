@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.breens.githubapp.data.local.GithubAppDatabase
 import com.breens.githubapp.data.local.dao.FollowersDao
-import com.breens.resources.fakeUsersFollowers
+import com.breens.githubapp.resources.fakeUsersFollowers
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -41,16 +41,16 @@ class FollowersDaoTest {
 
     @Test
     fun `store user's followers in GithubAppDatabase`() = runTest {
-        followersDao.storeUsersFollowers(fakeUsersFollowers)
+        followersDao.storeUsersFollowers(com.breens.githubapp.resources.fakeUsersFollowers)
 
         val usersFollowers = followersDao.getUsersFollowers()
 
-        Truth.assertThat(usersFollowers).isEqualTo(fakeUsersFollowers)
+        Truth.assertThat(usersFollowers).isEqualTo(com.breens.githubapp.resources.fakeUsersFollowers)
     }
 
     @Test
     fun `delete user's followers in GithubAppDatabase`() = runTest {
-        followersDao.storeUsersFollowers(fakeUsersFollowers)
+        followersDao.storeUsersFollowers(com.breens.githubapp.resources.fakeUsersFollowers)
 
         followersDao.deleteFollowers()
 
