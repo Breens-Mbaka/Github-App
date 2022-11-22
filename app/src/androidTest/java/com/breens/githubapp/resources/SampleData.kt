@@ -1,4 +1,4 @@
-package com.breens.resources
+package com.breens.githubapp.resources
 
 import com.breens.githubapp.data.local.entity.*
 
@@ -14,28 +14,28 @@ val fakeUserProfile = UserEntity(
     public_repos = 125
 )
 
-val fakeUsersFollowers = listOf(
+val fakeUsersFollowers =
     FollowersEntity(
         id = 72180010,
         avatarUrl = "https://avatars.githubusercontent.com/u/72180010?v=4",
         login = "Breens-Mbaka",
-    )
+
 )
 
-val fakeUsersFollowing = listOf(
+val fakeUsersFollowing =
     FollowingEntity(
         id = 72180010,
         avatarUrl = "https://avatars.githubusercontent.com/u/72180010?v=4",
         login = "Breens-Mbaka",
     )
-)
+
 
 
 val fakeRepoOwner = OwnerEntity(
     avatarUrl = "https://avatars.githubusercontent.com/u/72180010?v=4"
 )
 
-val fakeRepos = listOf(
+val fakeRepos =
     RepositoryEntity(
         id = 72180010,
         name = "30-Days-Of-JavaScript",
@@ -49,4 +49,3 @@ val fakeRepos = listOf(
         description = "something",
         updatedAt = "2021-01-13T14:11:02Z"
     )
-)
