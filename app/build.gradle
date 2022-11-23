@@ -82,6 +82,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     // Testing
+    androidTestImplementation "com.google.truth:truth:$google_truth"
     testImplementation "junit:junit:$junit_test_version"
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "com.google.truth:truth:$truth_version"

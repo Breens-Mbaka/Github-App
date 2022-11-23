@@ -19,6 +19,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleDebug
 
+      - name: Run Tests
+        run: ./gradlew test
+
       - name: Upload a Build Artifact (APK)
         uses: actions/upload-artifact@v2.2.4
         with:
